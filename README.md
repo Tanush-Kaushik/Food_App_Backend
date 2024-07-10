@@ -1,3 +1,3 @@
 # MapPinBackend
 
-The site is live with the frontend at (https://mappinfrontend.onrender.com/)
+This site is live with the frontend at (https://foodappfrontend.onrender.com/).
