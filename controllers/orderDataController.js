@@ -1,5 +1,6 @@
 import { orders } from "../models/order.js";
 import { mailer } from "../utility/mail.js";
+import { user } from "../models/User.js";
 
 export const placeOrder=async(req,res)=>{
     const { order_data, email, order_date } = req.body
@@ -8,6 +9,7 @@ export const placeOrder=async(req,res)=>{
     await data.splice(0, 0, { order_date })
 
     let id = await orders.findOne({ email })
+    let client = await user.findOne({ email })
 
     if (!id) {
         try {
@@ -17,7 +19,8 @@ export const placeOrder=async(req,res)=>{
                 order_data: [data]
             }).then(() => res.json({
                 success: true,
-                message: 'user data created'
+                message: 'user data created',
+                name: client.name
             }))
 
         } catch (error) {
@@ -33,7 +36,8 @@ export const placeOrder=async(req,res)=>{
             }).then(() => {
                 res.send({
                     success: true,
-                    message: 'user data updated'
+                    message: 'user data updated',
+                    name: client.name
                 })
             })
         } catch (error) {
